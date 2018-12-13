@@ -1,239 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add New Flower</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <style>
-      table tr:not(:first-child){
-             cursor: pointer;transition: all .25s ease-in-out;
-         }
-         table tr:not(:first-child):hover{background-color: #ffffb3;
-      }
-      #top {
-          margin: 4%;
-      }
-      #genus {
-          margin-left:36px
-      }
-      #species {
-          margin-left:25px
-      }
-      #insert-button {
-          margin: 2%;
-          margin-left: 0;
-      }
-      .cell {
-          padding: 10px;
-      }
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Add New Flower</title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+   <style>
+       table tr:not(:first-child){
+              cursor: pointer;transition: all .25s ease-in-out;
+          }
+          table tr:not(:first-child):hover{background-color: #ffffb3;
+       }
+       #top {
+           margin: 4%;
+       }
+       #genus {
+           margin-left:36px
+       }
+       #species {
+           margin-left:25px
+       }
+       #insert-button {
+           margin: 2%;
+           margin-left: 0;
+       }
+       .cell {
+           padding: 10px;
+       }
 
-      table {
-        border-collapse: collapse;
-        width: 150%;
-      }
+       table {
+         border-collapse: collapse;
+         width: 150%;
+       }
 
-      td, th {
-        border: 3px solid lightgrey;
-        text-align: left;
-        padding: 8px;
-      }
+       td, th {
+         border: 3px solid lightgrey;
+         text-align: left;
+         padding: 8px;
+       }
 
-      tr:nth-child(even) {
-        background-color: #eafaea;
-      }
-  </style>
+       tr:nth-child(even) {
+         background-color: #eafaea;
+       }
+   </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Southern Sierra Wilderness Club</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">Query<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="update">Update</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Insert</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+     <a class="navbar-brand" href="#">Southern Sierra Wilderness Club</a>
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarNav">
+       <ul class="navbar-nav">
+         <li class="nav-item active">
+           <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" href="update">Update</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" href="#">Insert</a>
+         </li>
+           <li class="nav-item">
+           <a class="nav-link" href="query">Query</a>
+         </li>
+       </ul>
+     </div>
+   </nav>
 
-  <!--this is for the genus, species and comname boxes -->
-  <div class="container">
-      <div class="row" id="top">
-          <!--this is probably the wrong way to do this but i am making a space from the top-->
-      </div>
-  </div>
-  <div class="container">
-      <div class="row">
-          <div class="col">
-              <h5>Name: <input type="varchar" name="name" id="name" ></h5>
-          </div>
-      </div>
-      <div class="row">
-          <div class="col">
-              <h5>Person: <input type="varchar" name="person" id="person"></h5>
-          </div>
-      </div>
-      <div class="row">
-          <div class="col">
-              <h5>Location: <input type="varchar" name="location" id="location"></h5>
-          </div>
-      </div>
-      <div class="row">
-          <div class="col">
-              <h5>Sighted: <input type="date" name="sighted" id="sighted"></h5>
-          </div>
-      </div>
-  </div>
-
-  <!--this is for the Add / Delete Flower button -->
-  <div class="container">
-      <div class="row">
-          <div class="col">
-              <button class="button1" onclick="addRow();" id="insert-button">Add New Flower Sighting</button>
-          <style>
-              .button1 {background-color: seagreen;
-              border: seagreen;
-              color: white;
-              padding: 15px 32px;
-              border-radius: 8px;
-              text-align: center;
-              text-decoration: none;
-              display: inline-block;
-              font-size: 16px;
-              margin: 4px 2px;
-              cursor: pointer;} /* Blue */
-          </style>
-          </div>
-      </div>
-  </div>
-
-  <!--this is for the table -->
-  <div class="container">
-      <div class="row">
-          <div class="col">
-              <table id="table" border="1">
-                  <tr>
-                      <th class="cell">Name</th>
-                      <th class="cell">Person</th>
-                      <th class="cell">Location</th>
-                      <th class="cell">Sighted</th>
-                  </tr>
+   <!--this is for the genus, species and comname boxes -->
+      <br>
+   <h2><center>Add New Flower Sightings!</center></h2>
 
 
+   <div class="container">
+       <div class="row">
+           <div class="col">
+               <h5>Name: <input type="varchar" name="name" id="name" ></h5>
+           </div>
+       </div>
+       <div class="row">
+           <div class="col">
+               <h5>Person: <input type="varchar" name="person" id="person"></h5>
+           </div>
+       </div>
+       <div class="row">
+           <div class="col">
+               <h5>Location: <input type="varchar" name="location" id="location"></h5>
+           </div>
+       </div>
+       <div class="row">
+           <div class="col">
+               <h5>Sighted: <input type="date" name="sighted" id="sighted"></h5>
+           </div>
+       </div>
+   </div>
 
+   <!--this is for the Add / Delete Flower button -->
+   <div class="container">
+       <div class="row">
+           <div class="col">
+               <button class="button1" onclick="addRow();" id="insert-button">Add New Flower Sighting</button>
+           <style>
+               .button1 {background-color: seagreen;
+               border: seagreen;
+               color: white;
+               padding: 15px 32px;
+               border-radius: 8px;
+               text-align: center;
+               text-decoration: none;
+               display: inline-block;
+               font-size: 16px;
+               margin: 4px 2px;
+               cursor: pointer;} /* Blue */
+           </style>
+           </div>
+       </div>
+   </div>
 
-                  {% for n, p, l, s in sighting_flowers%}
-                  <tr>
-                      <td class="cell">{{n}}</td>
-                      <td class="cell">{{p}}</td>
-                      <td class="cell">{{l}}</td>
-                      <td class="cell">{{s}}</td>
-                  </tr>
-                  {% endfor %}
+   <!--this is for the table -->
+   <div class="container">
+       <div class="row">
+           <div class="col">
+               <table id="table" border="1">
+                   <tr>
+                       <th class="cell">Name</th>
+                       <th class="cell">Person</th>
+                       <th class="cell">Location</th>
+                       <th class="cell">Sighted</th>
+                   </tr>
+                   {% for n, p, l, s in sighting_flowers%}
+                   <tr>
+                       <td class="cell">{{n}}</td>
+                       <td class="cell">{{p}}</td>
+                       <td class="cell">{{l}}</td>
+                       <td class="cell">{{s}}</td>
+                   </tr>
+                   {% endfor %}
+               </table>
+           </div>
+           <div class="col">
+               <!--the right column so that everything is lined up on the left side-->
+           </div>
+       </div>
+   </div>
 
+      <script>
+          // get selected row
+          // display selected row data in text input
+          var table = document.getElementById("table"),rIndex;
 
-              </table>
-          </div>
-          <div class="col">
-              <!--the right column so that everything is lined up on the left side-->
-          </div>
-      </div>
-  </div>
+          for(var i = 1; i < table.rows.length; i++) {
+              table.rows[i].onclick = function() {
+                  rIndex = this.rowIndex;
+                  console.log(rIndex);
 
-     <script>
-         // get selected row
-         // display selected row data in text input
-         var table = document.getElementById("table"),rIndex;
-
-         for(var i = 1; i < table.rows.length; i++) {
-             table.rows[i].onclick = function() {
-                 rIndex = this.rowIndex;
-                 console.log(rIndex);
-
-                 document.getElementById("genus").value = this.cells[0].innerHTML;
-                 document.getElementById("species").value = this.cells[1].innerHTML;
-                 document.getElementById("comname").value = this.cells[2].innerHTML;
-             };
-         }
-         //check if input is empty
-         function checkEmptyInput() {
-              var isEmpty = false,
-                  name = document.getElementById("name").value,
-                  person = document.getElementById("person").value,
-                  location = document.getElementById("location").value;
-                  sighted = document.getElementById("sighted").value;
-
-              if(name === ""){
-                  alert("Flower Name Cannot Be Empty");
-                  isEmpty = true;
-              }
-              else if(person === ""){
-                  alert("Person's Name Cannot Be Empty");
-                  isEmpty = true;
-              }
-              else if(location === ""){
-                  alert("Location Cannot Be Empty");
-                  isEmpty = true;
-              }
-              else if(sighted === ""){
-                  alert("Date Sighted Cannot Be Empty");
-                  isEmpty = true;
-              }
-              return isEmpty;
+                  document.getElementById("genus").value = this.cells[0].innerHTML;
+                  document.getElementById("species").value = this.cells[1].innerHTML;
+                  document.getElementById("comname").value = this.cells[2].innerHTML;
+              };
           }
-        // edit the row
-         function addRow() {
-          if(!checkEmptyInput()){
-              var newRow = table.insertRow(table.length),
-                  cell1 = newRow.insertCell(0),
-                  cell2 = newRow.insertCell(1),
-                  cell3 = newRow.insertCell(2),
-                  cell4 = newRow.insertCell(3),
-                  name = document.getElementById("name").value,
-                  person = document.getElementById("person").value,
-                  location = document.getElementById("location").value;
-                  sighted = document.getElementById("sighted").value;
+          //check if input is empty
+          function checkEmptyInput() {
+               var isEmpty = false,
+                   name = document.getElementById("name").value,
+                   person = document.getElementById("person").value,
+                   location = document.getElementById("location").value;
+                   sighted = document.getElementById("sighted").value;
 
-                  cell1.innerHTML = name;
-                  cell2.innerHTML = person;
-                  cell3.innerHTML = location;
-                  cell4.innerHTML = sighted;
+               if(name === ""){
+                   alert("Flower Name Cannot Be Empty");
+                   isEmpty = true;
+               }
+               else if(person === ""){
+                   alert("Person's Name Cannot Be Empty");
+                   isEmpty = true;
+               }
+               else if(location === ""){
+                   alert("Location Cannot Be Empty");
+                   isEmpty = true;
+               }
+               else if(sighted === ""){
+                   alert("Date Sighted Cannot Be Empty");
+                   isEmpty = true;
+               }
+               return isEmpty;
+           }
+         // edit the row
+          function addRow() {
+           if(!checkEmptyInput()){
+               var newRow = table.insertRow(table.length),
+                   cell1 = newRow.insertCell(0),
+                   cell2 = newRow.insertCell(1),
+                   cell3 = newRow.insertCell(2),
+                   cell4 = newRow.insertCell(3),
+                   name = document.getElementById("name").value,
+                   person = document.getElementById("person").value,
+                   location = document.getElementById("location").value;
+                   sighted = document.getElementById("sighted").value;
 
-                  // call the function to set the event to the new row
-                  selectedRowToInput();
+                   cell1.innerHTML = name;
+                   cell2.innerHTML = sighted;
+
+
+                   // call the function to set the event to the new row
+                   selectedRowToInput();
+           }
           }
-         }
-         //delete a row
-         function deleteRow() {
-              table.deleteRow(rIndex);
-              // clear input text
-              document.getElementById("name").value = "";
-              document.getElementById("person").value = "";
-              document.getElementById("location").value = "";
-              document.getElementById("sighted").value = "";
-          }
-     </script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+          //delete a row
+          function deleteRow() {
+               table.deleteRow(rIndex);
+               // clear input text
+               document.getElementById("name").value = "";
+               document.getElementById("person").value = "";
+               document.getElementById("location").value = "";
+               document.getElementById("sighted").value = "";
+           }
+      </script>
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 <footer>
-   <br>
-   <br>
-   <center><strong> Posted by:</strong> Aly Knowles and Taylor Rembos</center>
-   <br>
-   <br>
+    <br>
+    <br>
+    <center><strong> Posted by:</strong> Aly Knowles and Taylor Rembos</center>
+    <br>
+    <br>
 </footer>
 
 </body>
 </html>
+
