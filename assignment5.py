@@ -26,15 +26,93 @@ def index():
    all_flowers = c.fetchall()
    return render_template("index.html", all_flowers=all_flowers)
 
-@app.route('/update')
-def update():
-   c = get_db().cursor()
-   # this just gets the data from the db
 
-   c = get_db().cursor()
-   c.execute('SELECT GENUS, SPECIES, COMNAME FROM FLOWERS')
-   genus_flowers = c.fetchall()
-   return render_template("update.html", genus_flowers=genus_flowers)
+
+
+
+
+
+
+#
+# @app.route('/update', methods = ['POST', 'GET'])
+# def update():
+#
+   # # this just gets the data from the db
+   # c = get_db().cursor()
+   # c.execute('SELECT GENUS, SPECIES, COMNAME FROM FLOWERS')
+   # genus_flowers = c.fetchall()
+#
+#    # if request.method == 'POST':
+#    #   result = request.form
+#    #   # get the results from the form
+#    #   gen_result = request.form['genus']
+#    #   spec_result = request.form['species']
+#    #   com_result = request.form['comname']
+#
+#
+#    return render_template("update.html", genus_flowers=genus_flowers)
+#
+
+#
+#
+# def change_db():
+#
+
+
+@app.route('/update', methods = ['POST', 'GET'])
+def update():
+  if request.method =='POST':
+    result = request.form
+    # get the results from the form
+    gen_result = request.form['genus']
+    spec_result = request.form['species']
+    com_result = request.form['comname']
+
+     # allows me to interact with the db
+    c = get_db().cursor()
+
+    # puts the form results into an array that can be accessed by the sqlite (replaces the ?)
+    new_flower_info = (gen_result, spec_result, com_result, gen_result)
+     # this works so long as you are replacing fremontodendron
+    c.execute(""" UPDATE FLOWERS SET GENUS='?', SPECIES='?', COMNAME='?'""", new_flower_info)
+    conn = get_db()
+    c.close()
+    conn.commit()
+
+    # ask for the db like normal to send to the HTML doc
+    c.execute('SELECT GENUS, SPECIES, COMNAME FROM FLOWERS')
+    genus_flowers = c.fetchall()
+    # return render_template("update2.html", genus_flowers=genus_flowers)
+    return render_template("update.html" , result=result, genus_flowers=genus_flowers)
+  else:
+    # this just gets the data from the db
+    c = get_db().cursor()
+    c.execute('SELECT GENUS, SPECIES, COMNAME FROM FLOWERS')
+    genus_flowers = c.fetchall()
+    return render_template("update.html", genus_flowers=genus_flowers)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/insert')
 def insert():

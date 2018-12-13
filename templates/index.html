@@ -31,6 +31,9 @@
       -moz-column-rule-color: lightblue; /* Firefox */
       column-rule-color: lightblue;
     }
+    #main_text {
+        padding: 2%;
+    }
     </style>
 
 
@@ -44,7 +47,7 @@
 
 
    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-     <a class="navbar-brand" href="#">Southern Sierra Wilderness Club</a>
+     <a class="navbar-brand" href="/">Southern Sierra Wilderness Club</a>
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
        <span class="navbar-toggler-icon"></span>
      </button>
@@ -68,7 +71,15 @@
 
 <body bgcolor="#87cefa">
 <br>
-<center><h1>Welcome to the Southern Sierra Wilderness Club!</h1></center>
+
+<div class="container">
+  <div class="row">
+    <div class="col"></div>
+      <div class="row" id="top">
+          <!--this is probably the wrong way to do this but i am making a space from the top-->
+      </div>
+    <div class="col-11" id="main_text">
+      <center><h1>Welcome to the Southern Sierra Wilderness Club!</h1></center>
 <br>
     <p><b>The Sierra Wilderness:</b> Dotted with large meadows, intermittent streams, diverse pine forests, and a rare ecosystem of montane chaparral, the South Sierra Wilderness is a world of subtle beauty.</p>
 
@@ -85,12 +96,13 @@ The Owens Valley Paiute and the Panamint Shoshone both inhabited and harvested t
 
         <br>
 <div>
-        CONTACT
-INYO NATIONAL FOREST
-Supervisor’s Office
-351 Pacu Lane, Suite 200
-Bishop, CA 93514
-(760) 873-2400
+      <strong> CONTACT: <br></strong>
+
+INYO NATIONAL FOREST <br>
+Supervisor’s Office <br>
+351 Pacu Lane, Suite 200 <br>
+Bishop, CA 93514 <br>
+(760) 873-2400 <br>
     </div>
 
         <br>
@@ -98,13 +110,22 @@ Bishop, CA 93514
 
 
 <div>
-    SEQUOIA NATIONAL FOREST
-Supervisor’s Office
-900 West Grand Avenue
-Porterville, CA 93257
-(559) 784-1500
+SEQUOIA NATIONAL FOREST <br>
+Supervisor’s Office <br>
+900 West Grand Avenue <br>
+Porterville, CA 93257 <br>
+(559) 784-1500 <br>
 
     </div>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
+
+
+
+
+
 
 </body>
 
