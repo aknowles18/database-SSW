@@ -1,66 +1,141 @@
+from flask import Flask, render_template, request, g
 import sqlite3
 
-conn = sqlite3.connect('flowers.db')
-c = conn.cursor()
+app = Flask (__name__)
 
-def list_flowers():
-    c.execute('SELECT COMNAME FROM FLOWERS')
-    all_flowers = c.fetchall()
-    for row in all_flowers:
-        print(row)
+# conn = sqlite3.connect('flowers.db')
+# c = conn.cursor()
 
-def recent_sightings():
-    ##need to replace Draperia with the flower name that the user
-    ##clicked in list_flowers
-    name_of_flower = ('Draperia',)
-    c.execute('SELECT * FROM SIGHTINGS WHERE NAME=? ORDER BY SIGHTED DESC',
-              name_of_flower)
-    most_recent = c.fetchmany(10)
-    for row in most_recent:
-        print(row)   
+DATABASE = 'flowers.db'
 
-def update_flowers():
-    ##fill in the new_info variable with the new information 
-    new_flower_info = ('','','')
-    c.execute("""UPDATE FLOWERS SET GENUS=?, SPECIES=?, COMNAME=?
-        WHERE COMNAME='Fireweed'""", new_flower_info)
-    ##i don't think that i need a where condition because this function
-    ##will only be called when it is needed?
-    conn.commit()
+def get_db():
+  db = getattr(g, '_database', None)
+  if db is None:
+      db = g._database = sqlite3.connect(DATABASE)
+  return db
 
-def new_sighting():
-    ##when a flower is sighted in a new place, SIGHTINGS and
-    ##FEATURES should be updated with new info
-    new_sightings_info = ('','','','')
-    c.execute("INSERT INTO SIGHTINGS VALUES(?,?,?)", new_sightings_info)
-    conn.commit()
+@app.teardown_appcontext
+def close_connection(exception):
+  db = getattr(g, '_database', None)
+  if db is not None:
+      db.close()
 
-def printer():
-    c.execute("SELECT * FROM FLOWERS WHERE COMNAME='Fireweed'")
-    data = c.fetchall()
-    for row in data:
-        print(row)
+@app.route('/')
+def index():
+  c = get_db().cursor()
+  c.execute('SELECT COMNAME FROM FLOWERS')
+  all_flowers = c.fetchall()
+  return render_template("index.html", all_flowers=all_flowers)
 
 
 
-list_flowers()
-##recent_sightings()
-##update_flowers()
-printer()
+@app.route('/update', methods = ['POST', 'GET'])
+def update():
+  # this just gets the data from the db
+  c = get_db().cursor()
+  c.execute('SELECT GENUS, SPECIES, COMNAME FROM FLOWERS')
+  genus_flowers = c.fetchall()
+
+  # if request.method =='POST':
+  #   result = request.form
+  #   return render_template("update.html", result=result, genus_flowers=genus_flowers)
+  #   # return redirect(url_for('update'))
+  # else:
+  return render_template("update.html", genus_flowers=genus_flowers)
 
 
-##HTML
-##have to use method="post" 
-##
-##
-##Python
-##import request
-##%app.route('/', methods=['POST'])??? app might be the name of file and not just a basic term
-##def getvalue():
-##  whatever_i_want_to_call_this_var = request.form['name']
-##  probably will replace form with select
-##  name will be filled with whatever i name the selection as 
-##he does it with flask but
-## return render_template('pass.html', n=name, age=age, dob=dob)
-##then in the pass.html file:
-##you can just reference it like <h1> {{n}} </h1> 
+
+
+@app.route('/update2', methods = ['POST', 'GET'])
+def update2():
+  if request.method =='POST':
+    result = request.form
+    # get the results from the form
+    gen_result = request.form['genus']
+    spec_result = request.form['species']
+    com_result = request.form['comname']
+
+    # allows me to interact with the db
+    c = get_db().cursor()
+    # puts the form results into an array that can be accessed by the sqlite (replaces the ?)
+    new_flower_info = (gen_result, spec_result, com_result)
+
+
+
+
+    # this works so long as you are replacing fremontodendron
+    c.execute(""" UPDATE FLOWERS SET GENUS=?, SPECIES=?, COMNAME=? WHERE GENUS='?'""", new_flower_info)
+
+    # ask for the db like normal to send to the HTML doc
+    c.execute('SELECT GENUS, SPECIES, COMNAME FROM FLOWERS')
+    genus_flowers = c.fetchall()
+    # return render_template("update2.html", genus_flowers=genus_flowers)
+    return render_template("update2.html" , result=result, genus_flowers=genus_flowers)
+  else:
+    return render_template("update.html")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# @app.route('/result', methods = ['POST', 'GET'])
+# def result():
+#   if request.method =='POST':
+#     result = request.form
+#     return render_template("result.html", result=result)
+
+
+@app.route('/insert')
+def insert():
+  c = get_db().cursor()
+  # this just gets the data from the db
+
+  c = get_db().cursor()
+  c.execute('SELECT NAME, PERSON, LOCATION, SIGHTED FROM SIGHTINGS')
+  sighting_flowers = c.fetchall()
+  return render_template("insert.html", sighting_flowers=sighting_flowers)
+
+@app.route('/query')
+def query():
+  c = get_db().cursor()
+  # this just gets the data from the db
+
+  c.execute('SELECT NAME FROM SIGHTINGS')
+  name_flowers = c.fetchall()
+  return render_template("query.html", name_flowers=name_flowers)
+
+  c.execute('SELECT NAME, SIGHTED FROM SIGHTINGS')
+  sighting_flowers = c.fetchall()
+  return render_template("query.html", sighting_flowers=sighting_flowers)
+
+@app.route('/profile/<name>')
+def profile(name):
+  return render_template("profile.html", name=name)
+
+
+if __name__ == "__main__":
+  app.run(debug=True)
